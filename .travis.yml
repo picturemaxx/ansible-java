@@ -50,6 +50,3 @@ script:
 
   # Ensure Java is installed.
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm which java'
-
-notifications:
-  webhooks: https://galaxy.ansible.com/api/v1/notifications/
