@@ -1,6 +1,6 @@
 # Ansible Role: Java
 
-[![Build Status](https://travis-ci.org/geerlingguy/ansible-role-java.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-java)
+[![Build Status](https://travis-ci.org/picturemaxx/ansible-java.svg?branch=master)](https://travis-ci.org/picturemaxx/ansible-java)
 
 Installs Java for RedHat/CentOS and Debian/Ubuntu linux servers.
 
@@ -30,7 +30,7 @@ None.
 
     - hosts: servers
       roles:
-        - geerlingguy.java
+        - ansible-java
 
 ## Example Playbook (install OpenJDK 8)
 
@@ -38,7 +38,7 @@ For RHEL / CentOS:
 
     - hosts: server
       roles:
-        - role: geerlingguy.java
+        - role: ansible-java
           when: "ansible_os_family == 'RedHat'"
           java_packages:
             - java-1.8.0-openjdk
@@ -52,7 +52,7 @@ For Ubuntu < 16.04:
     
     - hosts: server
       roles:
-        - role: geerlingguy.java
+        - role: ansible-java
           when: "ansible_os_family == 'Debian'"
           java_packages:
             - openjdk-8-jdk
