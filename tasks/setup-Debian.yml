@@ -7,12 +7,13 @@
   when: ansible_distribution == 'Ubuntu'
 
 - name: Add repository for java 8 (debian)
+  apt_repository:
     repo: 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main'
     state: present
     update_cache: yes
   when: ansible_distribution != 'Ubuntu'
 
-- name: Accepr Java 8 License
+- name: Accept Java 8 License
   debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
   
 - name: Ensure Java is installed.
