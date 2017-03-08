@@ -20,5 +20,6 @@
   apt:
     pkg: "{{ item }}"
     state: present
+    force: yes
   with_items: "{{ java_packages }}"
 
