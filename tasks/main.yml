@@ -14,11 +14,15 @@
 - name: Define java_packages.
   set_fact:
     java_packages: "{{ __java_packages | list }}"
-  when: java_packages is not defined
+  when: java_packages is not defined and ansible_distribution != 'CentOS'
 
 # Setup/install tasks.
-- include: setup-RedHat.yml
-  when: ansible_os_family == 'RedHat'
+- include: setup-Fedora.yml
+  when: ansible_distribution == 'Fedora'
+  static: no
+
+- include: setup-CentOS.yml
+  when: ansible_distribution == 'CentOS'
   static: no
 
 - include: setup-Debian.yml
