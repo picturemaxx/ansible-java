@@ -1,10 +1,16 @@
 ---
 
+- name: Check Java
+  shell: command -v java
+    register: check_java
+    ignore_errors: True
+    changed_when: False
+
 - name: ensure wget is installed
   yum:
     name: wget
     state: present
-
+  when: check_java.rc > 0
 
 - name: Download Java
   command: 'wget -q -O "{{ java_archive }}" --no-check-certificate --no-cookies --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "{{ java_download_url }}"'
@@ -13,8 +19,10 @@
   yum:
     name: "{{ java_archive }}"
     state: present
+  when: check_java.rc > 0
 
 - name: Clean up
   file:
     state: absent
     path: "{{ java_archive }}"
+  when: check_java.rc > 0
