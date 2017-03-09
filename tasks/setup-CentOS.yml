@@ -5,36 +5,14 @@
     name: wget
     state: present
 
-- name: Ensure /opt exists
-  file:
-    path: "{{ java_download_folder }}" 
-    state: directory
-    mode: 0755
-    owner: root
-    group: root
-
-- name: Check if file exists
-  stat:
-    path: "{{ java_archive }}"
-  register: java
 
 - name: Download Java
   command: 'wget -q -O "{{ java_archive }}" --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" "{{ java_download_url }}"'
-  when: java.stat.exists == False
 
-- name: Unpack archive
-  command: "tar -zxf {{ java_archive }} -C {{ java_download_folder }} creates={{java_name}}"
-
-- name: Fix ownership
-  file:
-    state: directory
-    path: "{{ java_name }}"
-    owner: root
-    group: root
-    recurse: yes
-
-- name: Make Java available for system
-  command: 'alternatives --install "/usr/bin/java" "java" "{{ java_name }}/bin/java" 2000'
+- name: install java
+  yum:
+    name: "{{ java_archive }}"
+    state: present
 
 - name: Clean up
   file:
