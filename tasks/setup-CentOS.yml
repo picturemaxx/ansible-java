@@ -1,7 +1,7 @@
 ---
 
 - name: Download Java
-  command: wget -q -O "{{ java_archive }}" --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" "{{ java_download_url }}" arg1
+  command: 'wget -q -O "{{ java_archive }}" --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" "{{ java_download_url }}" arg1'
   args:
     creates: "{{ java_archive }}"
 
