@@ -2,9 +2,9 @@
 
 - name: Check Java
   shell: command -v java
-    register: check_java
-    ignore_errors: True
-    changed_when: False
+  register: check_java
+  ignore_errors: True
+  changed_when: False
 
 - name: ensure wget is installed
   yum:
@@ -14,6 +14,7 @@
 
 - name: Download Java
   command: 'wget -q -O "{{ java_archive }}" --no-check-certificate --no-cookies --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "{{ java_download_url }}"'
+  when: check_java.rc > 0
 
 - name: install java
   yum:
