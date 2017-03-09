@@ -1,5 +1,10 @@
 ---
 
+- name: ensure wget is installed
+  yum:
+    name: wget
+    state: present
+
 - name: Ensure /opt exists
   file:
     path: "{{ java_download_folder }}" 
