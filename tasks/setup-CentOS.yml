@@ -8,7 +8,7 @@
 - name: Fix ownership
   file:
     state: directory
-    path: {{java_name}}
+    path: "{{java_name}}"
     owner: root
     group: root
     recurse: yes
@@ -19,4 +19,4 @@
 - name: Clean up
   file:
     state: absent
-    path: {{java_archive}}
+    path: "{{java_archive}}"
