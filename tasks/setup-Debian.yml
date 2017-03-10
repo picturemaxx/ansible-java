@@ -8,13 +8,24 @@
 
 - name: installing repo for Java 8 in Debian
   apt_repository:
-    repo: 'deb http://http.debian.net/debian jessie-backports main'
-    state: present
-  when: ansible_distribution == 'Debian'
-
-- name: Ensure Java is installed.
-  apt: 
-    name: "{{ item }}"
+    repo: 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main'
     state: present
     update_cache: yes
+  when: ansible_distribution == 'Debian'
+
+- name: Accept Java 8 License
+  debconf:
+    name: 'oracle-java8-installer'
+    question: 'shared/accepted-oracle-license-v1-1'
+    value: 'true'
+    vtype: 'select'
+  when: ansible_distribution == 'Debian'
+
+
+- name: Ensure Java is installed.
+  apt:
+    name: "{{ item }}"
+    state: present
+    force: yes
   with_items: "{{ java_packages }}"
+
