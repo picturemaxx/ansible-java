@@ -1,7 +1,16 @@
 ---
 
 - name: installing repo for Java 8 in Ubuntu
-  apt_repository: repo='ppa:openjdk-r/ppa'
+  apt_repository:
+    repo: 'ppa:openjdk-r/ppa'
+    state: present
+  when: ansible_distribution == 'Ubuntu'
+
+- name: installing repo for Java 8 in Debian
+  apt_repository:
+    repo: 'deb http://http.debian.net/debian jessie-backports main'
+    state: present
+  when: ansible_distribution == 'Debian'
 
 - name: Ensure Java is installed.
   apt: 
